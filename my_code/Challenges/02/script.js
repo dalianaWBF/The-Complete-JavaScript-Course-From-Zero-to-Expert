@@ -1,4 +1,4 @@
-// Coding Challenge #1
+// Coding Challenge #2
 /*
 Use the BMI example from Challenge #1, and the code you already wrote, and improve it.
 Your tasks:
