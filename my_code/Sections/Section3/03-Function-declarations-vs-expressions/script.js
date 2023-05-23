@@ -17,7 +17,7 @@ const age2 = calculateAge2(1986);
 console.log(age2);
 
 //Arrow function
-const calcAge3 = () => 2037 - birthYear;
+const calcAge3 = birthYear => 2037 - birthYear;
 const age3 = calcAge3 (1990);
 console.log (age3);
 
