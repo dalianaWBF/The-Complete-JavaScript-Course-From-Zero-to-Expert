@@ -9,6 +9,6 @@ if (age === 18) console.log ("I'm a strict equality operator"); //false
 //to convert them 
 // '18' === 18 ? NO, but JS is going to convert one of them into the other
 //and them compare them
-// 18 === 18 ? SI
-// '18' === '18' ? SI
-if (age == 18) console.log ("I'm NOT a strict equality operator"); //true
+// 18 == 18 ? SI
+// '18' == '18' ? SI
+if (age == '18') console.log ("I'm NOT a strict equality operator"); //true
