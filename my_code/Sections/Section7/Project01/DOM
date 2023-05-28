@@ -1,0 +1,10 @@
+DOM:
+Document Object Model: Structured representation of HTML
+documents. Allows Javascrip to access HTML elements and 
+styles to manipulate them.
+- Change text, HTML attributes, and even CSS styles
+- It's a conextion between HTML document and JS code
+DOM Tree Structure:
+- Tree is structure based on father and childs (like a binary tree)
+- Special object is the entry point to the DOM. 
+Example: docuemnt.querySelector()
