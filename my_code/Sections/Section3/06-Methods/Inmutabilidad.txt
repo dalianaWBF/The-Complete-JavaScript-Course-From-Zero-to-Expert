@@ -1,0 +1,12 @@
+Investigar sobre la mutabilidad y la inmutabilidad
+
+const aux = friends; //asignación de referencia
+//copia del valor, se sigue trabajando sobre el mismo arreglo
+
+const aux = [...friends];  //spread function and Set
+//se trabaja sobre el nuevo arreglo
+
+clonar un objeto en otra variable y que no se modifique
+
+ecma 5 y 6 seudoclases - prototipo de clases
+
