@@ -1,0 +1,104 @@
+Investigar sobre la mutabilidad y la inmutabilidad:
+
+Link: https://www.escuelafrontend.com/mutabilidad-de-objetos-en-javascript
+
+//Explicación encontrada en el link:
+En JavaScript existen dos grandes tipos de datos: 
+ - Primitivos (string, number, boolean, null, undefined, Symbol y bigint).
+ - No primitivos o de referencia (objetos y arreglos (arrays), entre otros).
+
+
+------------------------------------------------------------
+INMUTABILIDAD
+------------------------------------------------------------
+Los tipos primitivos son inmutables.  Una vez que se le asigna un valor primitivo a una variable, la única manera de cambiarlo es asignándole otro valor. Al hacer esto, se está creando una nueva instancia de la variable.
+
+Las cadenas de texto, por poner un ejemplo, son siempre inmutables:
+    let variable = "prueba";
+    console.log(variable); // prueba
+    variable[0] = 'P';
+    console.log(variable); // prueba
+
+Si quieres modificar una cadena de texto, en realidad tienes que crear una nueva instancia:
+    let variable = "prueba";
+    let variable2 = variable.replace('p', 'P');
+    console.log(variable); // prueba
+    console.log(variable2); // Prueba
+
+
+------------------------------------------------------------
+MUTABILIDAD
+------------------------------------------------------------
+En cambio, los tipos de referencia son mutables. Esto quiere decir que se puede alterar el estado y las propiedades de un objeto en JavaScript sin la necesidad de tener que crear una nueva instancia del mismo.
+
+Los objetos son de tipo de referencia, lo que significa que a una variable a la que se le asigna un objeto, en realidad se le está definiendo una referencia a ese objeto.
+
+Si a otra variable se le asigna una referencia al mismo objeto y lo modifica, afectará a todas las variables vinculadas:
+    const persona = { nombre: "Juan" };
+    const otraPersona = persona;
+    otraPersona.nombre = "Clara";
+
+    console.log(persona);
+    // {
+    //   nombre: "Clara"
+    // }
+
+
+------------------------------------------------------------
+Cómo mantener la inmutabilidad?
+------------------------------------------------------------
+
+Object.assign:
+--------------
+El método Object.assign te permite crear un nuevo objeto copiando los valores de otro (u otros) objetos pasados como parámetros.
+
+    const persona = { nombre: "Juan" };
+    const otraPersona = Object.assign({}, persona);
+
+    console.log(otraPersona);
+    // {
+    //   nombre: "Juan"
+    // }
+
+
+También puedes combinar varios objetos en uno solo.
+    const frontend = { framework: "React" };
+    const backend = { database: "MySQL" };
+    const fullstack = Object.assign({}, frontend, backend);
+
+
+Object.freeze():
+----------------
+El método Object.freeze() “congela” un objeto, impidiendo que sea cambiado.
+
+    const objeto = { valor : 1 };
+    Object.freeze(valor);
+    objeto.valor = 2;
+    console.log(objeto); // { valor : 1 }
+
+    const person = Object.freeze({
+    name: 'Miguel',
+    twitter: '@midudev'
+    })
+
+
+Sintaxis “spread”:
+------------------
+Usando … puedes obtener un resultados similar al que tienes al usar Object.assign.
+
+    const otraPersona = {...persona, edad: 10 }
+
+
+
+------------------------------------------------------------
+Explicación de Wagner
+------------------------------------------------------------
+
+const aux = friends; //asignación de referencia
+//copia del valor, se sigue trabajando sobre el mismo arreglo
+
+const aux = [...friends];  //spread function and Set
+//se trabaja sobre el nuevo arreglo
+
+
+

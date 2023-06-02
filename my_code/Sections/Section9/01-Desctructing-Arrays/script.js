@@ -40,7 +40,7 @@ const [starter, mainC] = restaurant.order(2, 0);
 console.log(starter, mainC);
 
 
-//Array inside of another array -  nested destructuring
+//Array inside of another array -  nested (anidado) destructuring
 const nested = [2, 3, [5, 6]];
 const [i, ,j] = nested;
 console.log(i, j);

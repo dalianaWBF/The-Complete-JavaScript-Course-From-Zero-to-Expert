@@ -1,0 +1,1 @@
+ecma 5 y 6 seudoclases - prototipo de clases
