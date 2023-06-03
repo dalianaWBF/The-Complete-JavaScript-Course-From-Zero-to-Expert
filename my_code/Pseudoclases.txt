@@ -1,1 +1,65 @@
 ecma 5 y 6 seudoclases - prototipo de clases
+
+-----------------------------------------------------------
+PSEUDO CLASES 
+-----------------------------------------------------------
+
+CSS pseudo-classes are used to add styles to selectors, but only when those selectors meet certain conditions. A pseudo class is expressed by adding a colon (:) after a selector in CSS, followed by a pseudo-class such as "hover", "focus", or "active".???
+
+
+-----------------------------------------------------------
+CLASES 
+-----------------------------------------------------------
+Las clases tienen dos componentes: 
+    - expresiones de clases y 
+    - declaraciones de clases.
+
+function Person (name, age) { //Prototype
+    this.name = name;
+    this.age = age;
+}
+
+
+Declaración de clases:
+Una manera de definir una clase es mediante una declaración de clase. Para declarar una clase, se utiliza la palabra reservada class y un nombre para la clase "Person".
+
+class Person { //Clase
+    constructor (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    getAge() { //Methods que se almacenan en el prototype
+        return this.age;
+    }
+
+    static getAge() { //Methods NO se almacenan en el prototype
+        return this.age;
+    }
+
+}
+
+
+Expresiones de clases:
+Una expresión de clase es otra manera de definir una clase. Las expresiones de clase pueden ser nombradas o anónimas. El nombre dado a la expresión de clase nombrada es local dentro del cuerpo de la misma.
+
+// Anonima
+let Rectangulo = class {
+  constructor(alto, ancho) {
+    this.alto = alto;
+    this.ancho = ancho;
+  }
+};
+
+console.log(Rectangulo.name);
+// output: "Rectangulo"
+
+// Nombrada
+let Rectangulo = class Rectangulo2 {
+  constructor(alto, ancho) {
+    this.alto = alto;
+    this.ancho = ancho;
+  }
+};
+console.log(Rectangulo.name);
+// output: "Rectangulo2"
