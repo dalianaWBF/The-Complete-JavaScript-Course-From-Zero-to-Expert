@@ -1,12 +1,3 @@
-ecma 5 y 6 seudoclases - prototipo de clases
-
------------------------------------------------------------
-PSEUDO CLASES 
------------------------------------------------------------
-
-CSS pseudo-classes are used to add styles to selectors, but only when those selectors meet certain conditions. A pseudo class is expressed by adding a colon (:) after a selector in CSS, followed by a pseudo-class such as "hover", "focus", or "active".???
-
-
 -----------------------------------------------------------
 CLASES 
 -----------------------------------------------------------

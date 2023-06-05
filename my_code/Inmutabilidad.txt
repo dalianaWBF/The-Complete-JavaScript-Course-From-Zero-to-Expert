@@ -35,7 +35,7 @@ Los objetos son de tipo de referencia, lo que significa que a una variable a la 
 
 Si a otra variable se le asigna una referencia al mismo objeto y lo modifica, afectará a todas las variables vinculadas:
     const persona = { nombre: "Juan" };
-    const otraPersona = persona;
+    const otraPersona = persona; 
     otraPersona.nombre = "Clara";
 
     console.log(persona);

@@ -51,27 +51,11 @@ restaurant.orderDelivery ({
   startedIndex: 2,
 });
 
-//Use ANY data type, return ANY data type
-//Short-circuting (if the first value is true it's going to return the first value )
-console.log(3 || 'Jonas'); //3
-console.log('' || 'Jonas'); //Jonas
-console.log(true || 0); // true
-console.log(undefined || null); // null
+//FOR OF
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+for (const item of menu) console.log(item);
 
-
-restaurant.numGuessts = 0;
-const guests1 = restaurant.numGuessts ? restaurant.numGuessts : 10;
-console.log(guests1);
-
-const guests2 =  restaurant.numGuessts || 10;
-console.log(guests2);
-
-
-//AND OEPRATOR
-console.log('-------AND-------');
-console.log(0 && 'Jonas'); //false REVISARRRRRR
-console.log(8 && 'Jonas'); //true
-
-//Practical example:
-//is the same of a if statment:  
-restaurant.orderPizza && restaurant.orderPizza ('cheese', 'tomato');
+//destructurar
+for (const [posicion, elemento] of menu.entries()){
+  console.log(`${posicion + 1} : ${elemento}`);
+} 

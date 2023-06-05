@@ -50,5 +50,5 @@ console.log(l, m, n);
 
 //Default values
 const [r=1, s=1, t=1] = [8, 9]; //8, 9, undifined
-console.log(r, s, t);
+console.log(r, s, t); 
 

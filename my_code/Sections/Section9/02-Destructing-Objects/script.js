@@ -64,9 +64,11 @@ console.log(menu, starters);
 //MUTATING VARIABLES
 let a = 111;
 let b = 999;
-const obj = {a: 23, b: 7, c: 14};       
-({a, b} = obj);
-console.log (a, b);
+console.log ('Estoy aqui 1: ', a, b);
+
+const obj = {a: 23, b: 7, c: 14};        // a = 23, b = 7, c = 14
+({a, b} = obj); // 23 7 //desestructurando el objeto obj y mutando las variables a y b
+console.log ('Estoy aqui', a, b);
 
 
 //Nested objects
