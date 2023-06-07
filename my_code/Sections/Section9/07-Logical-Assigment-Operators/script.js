@@ -52,9 +52,10 @@ restaurant.orderDelivery ({
 });
 
 
-///
+//Logical Assigment operators
 const restaurant1 = {
   name: 'Capri',
+  //numGuests: 20, 
   numGuests: 0, 
 }
 
@@ -63,19 +64,19 @@ const restaurant2 = {
   owner: 'Giovanni Rossi'
 }
 
-// restaurant1.numGuests = restaurant1.numGuests || 10;
-// restaurant2.numGuests = restaurant2.numGuests || 10;
+// restaurant1.numGuests = restaurant1.numGuests || 10; 
+// restaurant2.numGuests = restaurant2.numGuests || 10; 
 
-// console.log(restaurant1);
-// console.log(restaurant2);
+// console.log(restaurant1); //numGuests: 20
+// console.log(restaurant2); //numGuests: 10 (because it didn't exist before)
 
-//Logical Assigment Operator
+//Logical Assigment Operator (the same as the previous example)
 // restaurant1.numGuests ||= 10;
 // restaurant2.numGuests ||= 10;
 
 //Nullish Assigment Operator
-restaurant1.numGuests ??= 10;
-restaurant2.numGuests ??= 10;
+restaurant1.numGuests ??= 10; //numGuests: 0
+restaurant2.numGuests ??= 10; //numGuests: 10
 
 console.log(restaurant1); //10
 console.log(restaurant2); //10

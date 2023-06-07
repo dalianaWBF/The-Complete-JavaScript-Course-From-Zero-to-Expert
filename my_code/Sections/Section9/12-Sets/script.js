@@ -62,6 +62,8 @@ const orderSet = new Set([
   'Pizza', 
 ]);
 
+console.log('typeof', typeof orderSet);
+
 //All the duplicate are gone
 console.log(orderSet); //'Pasta', 'Pizza', 'Risotto'
 console.log(orderSet.size); //3

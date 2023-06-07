@@ -55,6 +55,6 @@ restaurant.numGuessts = 0;
 const guests =  restaurant.numGuessts || 10; 
 console.log(guests); //10
 
-//Nullish: null and undefined (NOT 0 or ' ')
+//Nullish: null and undefined (but the 0 or ' ' are not treat as a falsy values)
 const guessCorrect = restaurant.numGuessts ?? 10;
 console.log(guessCorrect); //0

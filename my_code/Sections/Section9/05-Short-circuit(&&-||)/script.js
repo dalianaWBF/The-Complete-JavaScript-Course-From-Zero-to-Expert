@@ -51,26 +51,30 @@ restaurant.orderDelivery ({
   startedIndex: 2,
 });
 
-//Use ANY data type, return ANY data type
+//They can use ANY data type, 
+//they can return ANY data type
 //Short-circuting (if the first value is true it's going to return the first value )
 console.log(3 || 'Jonas'); //3
 console.log('' || 'Jonas'); //Jonas
 console.log(true || 0); // true
-console.log(undefined || null); // null
+console.log(undefined || null); // null (in these case both are falsy values but because it's not| a Short-circuting it returns the second value)
+console.log(undefined || 0 || '' || 'Hello' || 23); //'Hello'
 
+
+const guests1 = restaurant.numGuessts ? restaurant.numGuessts : 10;
+console.log('Guests1', guests1); //10
 
 restaurant.numGuessts = 0;
-const guests1 = restaurant.numGuessts ? restaurant.numGuessts : 10;
-console.log(guests1);
-
 const guests2 =  restaurant.numGuessts || 10;
-console.log(guests2);
+console.log('Guests2', guests2); //10 instead of 0 (because the OR functions consider the 0 as a falsy value)
 
 
 //AND OEPRATOR
 console.log('-------AND-------');
-console.log(0 && 'Jonas'); //false REVISARRRRRR
-console.log(8 && 'Jonas'); //true
+console.log(0 && 'Jonas'); //0 (because of the shor-circuting of AND if the fisrt element is false it returns it without taking a look at the second one)
+console.log(8 && 'Jonas'); //true (when the fisrt value is true, it continues and evaluate the second value and then return the last value)
+
+console.log(8 && 'Jonas' && undefined); //undifined
 
 //Practical example:
 //is the same of a if statment:  

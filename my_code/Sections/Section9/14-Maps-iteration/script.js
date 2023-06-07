@@ -64,7 +64,7 @@ console.log(question);
 
 //Convert objects to map:
 console.log(Object.entries(openingHours));
-const hoursMap = new Map(Object.entries(openingHours)); //FOR WHAT REASON?????
+const hoursMap = new Map(Object.entries(openingHours)); 
 console.log(hoursMap);
 
 for(const [key, value] of question){
@@ -75,6 +75,7 @@ const answer = 3;
 //Number (prompt('Your answer'));
 console.log(answer);
 
+//trabajar con los valores booleanos del map
 console.log(question.get(question.get('correct') === answer));
 
 
