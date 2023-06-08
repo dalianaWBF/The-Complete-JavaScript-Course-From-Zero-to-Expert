@@ -24,7 +24,7 @@ const restaurant = {
   categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
   starterMenu: ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"],
   mainMenu: ["Pizza", "Pasta", "Risotto"],
-  openingHours,
+  openingHours, 
   //Declared (openingHours: openingHours) is the same as declared openingHours, because the name of the value is the same of the name of the object
 
   //Enhanced object literals also allows to get rid of the word function:

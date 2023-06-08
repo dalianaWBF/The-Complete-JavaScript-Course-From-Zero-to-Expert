@@ -87,7 +87,7 @@ for(const order of orderSet) console.log(order);
 //Delete the duplicates of an array
 const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
 
-const staffUnique = new Set(staff);
+const staffUnique = new Set(staff); //inmutable
 console.log(staffUnique); // 'Waiter', 'Chef', 'Manager'
 
 //create a new array with unique values
@@ -96,3 +96,5 @@ console.log(staffUniqueArray);
 
 //size
 console.log(new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size); //3
+
+
