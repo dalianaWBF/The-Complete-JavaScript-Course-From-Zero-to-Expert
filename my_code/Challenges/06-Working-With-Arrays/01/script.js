@@ -37,7 +37,7 @@ const checkDogs = function (dogsJulia, dogsKate) {
   console.log(juliaAndKateArray);
 
   //3. For each remaining dog,log to the console whether it's an adult
-  juliaAndKateArray.forEach((dog, index, arr) => {
+  juliaAndKateArray.forEach((dog, index) => {
     dog >= 3
       ? console.log(`Dog number ${index+1} is an adult, and is ${dog} years old`)
       : console.log(`Dog number ${index+1} is still a puppy 🐶`);

@@ -17,3 +17,29 @@ Test data:
     - Data1:[5,2,4,1,15,8,3] 
     - Data2:[16,6,10,5,6,1,4]
 */
+
+const juliaData = [3, 5, 2, 12, 7];
+const kateData = [4, 1, 15, 8, 3];
+
+const dogsArray = [16,6,10,5,6,1,4]; //juliaData.slice(1, -2).concat(kateData);
+
+const humanAge = [];
+dogsArray.forEach((dog) => {
+  dog <= 2 ? humanAge.push(2 * dog) : humanAge.push(16 + dog * 4);
+});
+
+const humanAgeFilter = humanAge.filter(function (age) {
+  return age >= 18;
+});
+
+const calcAverageHumanAge = humanAgeFilter.reduce(
+  (accumulator, currentValue) => (accumulator + currentValue),
+  0
+);
+const average = calcAverageHumanAge / humanAgeFilter.length;
+
+console.log('Average', average);
+
+console.log(humanAge);
+console.log(dogsArray);
+console.log(humanAgeFilter);
