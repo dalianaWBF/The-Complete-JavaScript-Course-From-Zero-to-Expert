@@ -99,7 +99,7 @@ console.log(announcment.replace('door', 'gate')); //case sentitive
 console.log(announcment.replaceAll('door', 'gate')); 
 
 //Expresiones regulares:
-console.log(announcment.replace(/door/g, 'gate'));
+console.log(announcment.replace(/door/g, 'gate')); 
 
 //Booleans
 const plane = 'Airbus A320neo';
