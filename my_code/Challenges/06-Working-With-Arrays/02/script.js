@@ -18,28 +18,27 @@ Test data:
     - Data2:[16,6,10,5,6,1,4]
 */
 
-const juliaData = [3, 5, 2, 12, 7];
+const juliaData = [3, 5, 2, 12, 7, 1];
 const kateData = [4, 1, 15, 8, 3];
+const dogsArray = [16, 6, 10, 5, 6, 1, 4]; //juliaData.slice(1, -2).concat(kateData);
 
-const dogsArray = [16,6,10,5,6,1,4]; //juliaData.slice(1, -2).concat(kateData);
+//1. Calculate the dog age in human years
+const calcAverageHumanAge1 = function (dog) {
+  const humanAges = dog.map((dog) => (dog <= 2 ? 2 * dog : 16 + dog * 4));
+  console.log(humanAges);
 
-const humanAge = [];
-dogsArray.forEach((dog) => {
-  dog <= 2 ? humanAge.push(2 * dog) : humanAge.push(16 + dog * 4);
-});
+  const humanAgeFilter = humanAges.filter(function (age) {
+    return age >= 18;
+  });
+  console.log(humanAgeFilter);
 
-const humanAgeFilter = humanAge.filter(function (age) {
-  return age >= 18;
-});
+  const calcAverageHumanAge = humanAgeFilter.reduce(
+    (accumulator, currentValue, index, arr) => accumulator + currentValue / arr.length,
+    0
+  );
+ 
+  console.log(calcAverageHumanAge);
 
-const calcAverageHumanAge = humanAgeFilter.reduce(
-  (accumulator, currentValue) => (accumulator + currentValue),
-  0
-);
-const average = calcAverageHumanAge / humanAgeFilter.length;
+};
 
-console.log('Average', average);
-
-console.log(humanAge);
-console.log(dogsArray);
-console.log(humanAgeFilter);
+calcAverageHumanAge1(juliaData);
