@@ -56,6 +56,7 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const accounts = [account1, account2, account3, account4];
 const user = "Steven Thomas Williams"; //Username: stw
 
@@ -80,9 +81,9 @@ const displayMovement = function (movements) {
 //const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //balance de la cuenta usando reduce
-const calcDisplayBalance = function (movements) {
-  const balnaceG = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balnaceG}€`;
+const calcDisplayBalance = function (account) {
+  account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${account.balance}€`;
 };
 
 //calcular el income, el outcome y el interes
@@ -121,6 +122,17 @@ const createUsernames = function (accounts) {
 createUsernames(accounts);
 console.log(accounts);
 
+const updateUI = function (currentAccount) {
+  //Display movements
+  displayMovement(currentAccount.movements);
+
+  //Display balance
+  calcDisplayBalance(currentAccount);
+
+  //Display summary
+  calcDisplaySummary(currentAccount);
+};
+
 //Login
 let currentAccount;
 btnLogin.addEventListener("click", function (e) {
@@ -140,18 +152,102 @@ btnLogin.addEventListener("click", function (e) {
     containerApp.style.opacity = 100; //hacer visible el contenido
 
     //Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginPin.blur(); //Pierde el foco 
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur(); //Pierde el foco
 
-    //Display movements
-    displayMovement(currentAccount.movements);
-
-    //Display balance
-    calcDisplayBalance(currentAccount.movements);
-
-    //Display summary
-    calcDisplaySummary(currentAccount);
+    updateUI(currentAccount);
 
     console.log(inputLoginPin.value);
   }
 });
+
+//Transfer money from one account to another
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amountToTransfer = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(
+    (account) => account.username === inputTransferTo.value
+  );
+
+  inputTransferAmount.value = inputTransferTo.value = "";
+
+  //check the amount of the transfer
+  if (
+    amountToTransfer > 0 &&
+    receiverAccount &&
+    currentAccount.balance >= amountToTransfer &&
+    receiverAccount?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amountToTransfer);
+    receiverAccount.movements.push(amountToTransfer);
+
+    updateUI(currentAccount);
+  }
+});
+
+//-----------------------------------------------------------------------
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    //Add movement
+    currentAccount.movements.push(amount);
+    
+    //update ui
+    updateUI(currentAccount);
+
+    //clear the field
+    inputLoanAmount.value = '';
+  }
+});
+
+//-----------------------------------------------------------------------
+//findIndex
+//delete an object from an array - splice (but it need a index)
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const indexToDelete = accounts.findIndex(
+      (account) => account.username === currentAccount.username
+    );
+
+    //Delete account
+    accounts.splice(indexToDelete, 1);
+
+    //Hide UI
+    containerApp.style.opacity = 0;
+  }
+
+  //Clear the fields
+  inputCloseUsername.value = inputClosePin.value = "";
+});
+
+//-----------------------------------------------------------------------
+//SOME AND EVERY
+console.log(movements.includes(-130)); //verifica si existe ese valor en el array
+
+//SOME
+//positive movement in the array
+const anyDeposits = movements.some((mov) => mov > 5000);
+console.log(anyDeposits); //devuelve true si ALGUNO de los valores cumple la condicion 
+
+
+//EVERY
+console.log(account4.movements.every(mov => mov > 0));  //devuelve true si TODOS de los valores cumple la condicion 
+
+
+//Separate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));

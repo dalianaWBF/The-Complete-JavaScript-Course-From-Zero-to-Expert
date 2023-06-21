@@ -60,42 +60,38 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const accounts = [account1, account2, account3, account4];
 const user = "Steven Thomas Williams"; //Username: stw
 
-//Desplegar los movimientos de la cuenta
-const displayMovement = function (movements) {
-  containerMovements.innerHTML = ""; //similar to textContent
 
-  movements.forEach(function (mov, index) {
-    const type = mov > 0 ? "deposit" : "withdrawal";
+//FLAT
+//it goes 1 level down : arr.flat(1) by default
+const arr = [[1,2,3], [7,9,0], 8, 4];
+console.log(arr.flat()); //[1,2,3,7,9,0,8,4]
 
-    const html = `<div class="movements__row">
-      <div class="movements__type movements__type--${type}">${
-      index + 1
-    } ${type}</div>
-      <div class="movements__value">${mov}€</div>
-    </div>`;
+const arrDeep = [[1,[2,3]], [7,[9],0], 8, 4];
+console.log(arrDeep.flat()); //[1,[2,3],7,[9],0,8,4]
+//arrDeep.flat(2) goes 2 levels down 
+console.log(arrDeep.flat(2)); //[1,2,3,7,9,0,8,4] 
 
-    //insertAdjacentHTML(position of the element, string containg the HTML)
-    containerMovements.insertAdjacentHTML("afterbegin", html);
-  });
-};
+//Example
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
 
+const allMovements = accountMovements.flat();
+console.log(allMovements);
 
-//-----------------------------------------------------------------------
-//SOME AND EVERY
-console.log(movements.includes(-130)); //verifica si existe ese valor en el array
-
-//SOME
-//positive movement in the array
-const anyDeposits = movements.some((mov) => mov > 5000);
-console.log(anyDeposits); //devuelve true si ALGUNO de los valores cumple la condicion 
+const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance); //17840
 
 
-//EVERY
-console.log(account4.movements.every(mov => mov > 0));  //devuelve true si TODOS de los valores cumple la condicion 
+//chaining
+const overalBalance2 = accounts
+.map(acc => acc.movements)
+.flat()
+.reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2); //17840
 
 
-//Separate callback
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+//FLAT MAP
+const overalBalanceMap = accounts
+.flatMap(acc => acc.movements)
+.reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalanceMap); //17840
