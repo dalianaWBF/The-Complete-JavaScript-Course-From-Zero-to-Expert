@@ -61,10 +61,15 @@ const accounts = [account1, account2, account3, account4];
 const user = "Steven Thomas Williams"; //Username: stw
 
 //Desplegar los movimientos de la cuenta
-const displayMovement = function (movements) {
+const displayMovement = function (movements, sort = false) {
   containerMovements.innerHTML = ""; //similar to textContent
+  const movs = sort
+    ? movements
+        .slice()
+        .sort((currentValue, nextValue) => currentValue - nextValue)
+    : movements;
 
-  movements.forEach(function (mov, index) {
+  movs.forEach(function (mov, index) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
     const html = `<div class="movements__row">
@@ -197,12 +202,12 @@ btnLoan.addEventListener("click", function (e) {
   ) {
     //Add movement
     currentAccount.movements.push(amount);
-    
+
     //update ui
     updateUI(currentAccount);
 
     //clear the field
-    inputLoanAmount.value = '';
+    inputLoanAmount.value = "";
   }
 });
 
@@ -232,22 +237,11 @@ btnClose.addEventListener("click", function (e) {
   inputCloseUsername.value = inputClosePin.value = "";
 });
 
-//-----------------------------------------------------------------------
-//SOME AND EVERY
-console.log(movements.includes(-130)); //verifica si existe ese valor en el array
+//sort the movement
+let sorted = false;
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
 
-//SOME
-//positive movement in the array
-const anyDeposits = movements.some((mov) => mov > 5000);
-console.log(anyDeposits); //devuelve true si ALGUNO de los valores cumple la condicion 
-
-
-//EVERY
-console.log(account4.movements.every(mov => mov > 0));  //devuelve true si TODOS de los valores cumple la condicion 
-
-
-//Separate callback
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+  displayMovement(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
