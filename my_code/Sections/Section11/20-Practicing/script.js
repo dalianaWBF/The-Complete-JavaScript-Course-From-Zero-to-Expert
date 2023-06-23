@@ -133,7 +133,8 @@ const convertTitleCase = function (title) {
   const titleCase = title
     .toLowerCase()
     .split(' ')
-    .map(word => expectations.includes(word) ? word : word[0].toUpperCase() + word.slice(1));
+    .map(word => expectations.includes(word) ? word : word[0].toUpperCase() + word.slice(1))
+    .join(' ');
   console.log(titleCase);
 };
 
