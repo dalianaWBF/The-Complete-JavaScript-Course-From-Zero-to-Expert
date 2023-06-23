@@ -12,14 +12,14 @@ const account1 = {
   pin: 1111,
 
   movementsDates: [
-    "2019-11-18T21:31:17.178Z",
-    "2019-12-23T07:42:02.383Z",
-    "2020-01-28T09:15:04.904Z",
-    "2020-04-01T10:17:24.185Z",
-    "2020-05-08T14:11:59.604Z",
-    "2020-07-26T17:01:17.194Z",
-    "2020-07-28T23:36:17.929Z",
-    "2020-08-01T10:51:36.790Z",
+    "2022-11-18T21:31:17.178Z",
+    "2022-12-23T07:42:02.383Z",
+    "2023-01-28T09:15:04.904Z",
+    "2023-05-18T10:17:24.185Z",
+    "2023-05-08T14:11:59.604Z",
+    "2023-06-20T17:01:17.194Z",
+    "2023-04-28T23:36:17.929Z",
+    "2023-06-22T10:51:36.790Z",
   ],
   currency: "EUR",
   locale: "pt-PT", // de-DE
@@ -32,20 +32,18 @@ const account2 = {
   pin: 2222,
 
   movementsDates: [
-    "2019-11-01T13:15:33.035Z",
-    "2019-11-30T09:48:16.867Z",
-    "2019-12-25T06:04:23.907Z",
-    "2020-01-25T14:18:46.235Z",
-    "2020-02-05T16:33:06.386Z",
-    "2020-04-10T14:43:26.374Z",
-    "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
+    "2022-11-01T13:15:33.035Z",
+    "2022-11-30T09:48:16.867Z",
+    "2022-12-25T06:04:23.907Z",
+    "2023-06-19T14:18:46.235Z",
+    "2023-02-05T16:33:06.386Z",
+    "2023-04-10T14:43:26.374Z",
+    "2023-06-22T18:49:59.371Z",
+    "2023-06-12T12:01:20.894Z",
   ],
   currency: "USD",
   locale: "en-US",
 };
-
-const accounts = [account1, account2];
 
 /////////////////////////////////////////////////
 // Elements
@@ -74,25 +72,46 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const user = "Steven Thomas Williams"; //Username: stw
+const accounts = [account1, account2];
+
+//Date function:
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const dayPassed = calcDaysPassed(new Date(), date);
+  console.log(dayPassed);
+
+  if (dayPassed === 0) return "Today";
+  if (dayPassed === 1) return "Yesterday";
+  if (dayPassed <= 7) return `${dayPassed} days ago`;
+  else {
+    //day/month/year
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+};
 
 //Desplegar los movimientos de la cuenta
-const displayMovement = function (movements, sort = false) {
+const displayMovement = function (account, sort = false) {
   containerMovements.innerHTML = ""; //similar to textContent
   const movs = sort
-    ? movements
+    ? account.movements
         .slice()
         .sort((currentValue, nextValue) => currentValue - nextValue)
-    : movements;
+    : account.movements;
 
   movs.forEach(function (mov, index) {
     const type = mov > 0 ? "deposit" : "withdrawal";
+    const date = new Date(account.movementsDates[index]);
+    const displayDate = formatMovementDate(date);
 
     const html = `<div class="movements__row">
-      <div class="movements__type movements__type--${type}">${
-      index + 1
-    } ${type}</div>
+      <div class="movements__type movements__type--${type}">${index + 1} ${type}
+    </div>
+      <div class="movements__date">${displayDate}</div>
       <div class="movements__value">${mov.toFixed(2)}€</div>
     </div>`;
 
@@ -146,7 +165,7 @@ console.log(accounts);
 
 const updateUI = function (currentAccount) {
   //Display movements
-  displayMovement(currentAccount.movements);
+  displayMovement(currentAccount);
 
   //Display balance
   calcDisplayBalance(currentAccount);
@@ -157,6 +176,14 @@ const updateUI = function (currentAccount) {
 
 //Login
 let currentAccount;
+
+/////////////////////////////////////////////////
+//Fake always logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+/////////////////////////////////////////////////
+
 btnLogin.addEventListener("click", function (e) {
   //Prevent form from submitting
   e.preventDefault(); //prevent the reload of the page
@@ -172,6 +199,20 @@ btnLogin.addEventListener("click", function (e) {
       currentAccount.owner.split(" ")[0]
     }`;
     containerApp.style.opacity = 100; //hacer visible el contenido
+
+    //Set the date
+    const now = new Date();
+    //labelDate.textContent = now;
+
+    //day/month/year
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    const dayOrNight = hour <= 12 ? "AM" : "PM";
+
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min} ${dayOrNight}`;
 
     //Clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
@@ -203,6 +244,10 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.movements.push(-amountToTransfer);
     receiverAccount.movements.push(amountToTransfer);
 
+    //Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAccount.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
   }
 });
@@ -211,7 +256,7 @@ btnTransfer.addEventListener("click", function (e) {
 btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const amount = Math.floor((inputLoanAmount.value));
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (
     amount > 0 &&
@@ -219,6 +264,8 @@ btnLoan.addEventListener("click", function (e) {
   ) {
     //Add movement
     currentAccount.movements.push(amount);
+    //Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     //update ui
     updateUI(currentAccount);
@@ -259,36 +306,6 @@ let sorted = false;
 btnSort.addEventListener("click", function (e) {
   e.preventDefault();
 
-  displayMovement(currentAccount.movements, !sorted);
+  displayMovement(currentAccount, !sorted);
   sorted = !sorted;
 });
-
-
-///////////////////////////////////////
-// The Remainder Operator
-console.log(5 % 2); //1
-console.log(5 / 2); //5 = 2 * 2 + 1
-
-console.log(8 % 3); //2
-console.log(8 / 3); //8 = 2 * 3 + 2
-
-console.log(6 % 2); //0
-console.log(6 / 2); //3
-
-console.log(7 % 2); //1
-console.log(7 / 2); //3.5
-
-const isEven = n => n % 2 === 0; //(es par)
-console.log(isEven(8)); //true
-console.log(isEven(23)); //false
-console.log(isEven(514)); //true
-
-labelBalance.addEventListener('click', function () {
-  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
-    // 0, 2, 4, 6
-    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
-    // 0, 3, 6, 9
-    if (i % 3 === 0) row.style.backgroundColor = 'blue';
-  });
-});
-
