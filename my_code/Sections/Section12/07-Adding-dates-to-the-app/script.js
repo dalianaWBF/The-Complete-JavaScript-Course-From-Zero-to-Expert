@@ -184,6 +184,13 @@ updateUI(currentAccount);
 containerApp.style.opacity = 100;
 /////////////////////////////////////////////////
 
+//experiment with the app
+  //Set the date
+  const now = new Date();
+  labelDate.textContent = new Intl.DateTimeFormat('en').format(now);
+//link of format codes:
+//http://www.lingoes.net/en/translator/langcode.htm
+
 btnLogin.addEventListener("click", function (e) {
   //Prevent form from submitting
   e.preventDefault(); //prevent the reload of the page
@@ -200,19 +207,18 @@ btnLogin.addEventListener("click", function (e) {
     }`;
     containerApp.style.opacity = 100; //hacer visible el contenido
 
-    //Set the date
-    const now = new Date();
-    //labelDate.textContent = now;
+    // //Set the date
+    // const now = new Date();
+    // //labelDate.textContent = now;
 
-    //day/month/year
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const min = `${now.getMinutes()}`.padStart(2, 0);
-    const dayOrNight = hour <= 12 ? "AM" : "PM";
-
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min} ${dayOrNight}`;
+    // //day/month/year
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const min = `${now.getMinutes()}`.padStart(2, 0);
+    // const dayOrNight = hour <= 12 ? "AM" : "PM";
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min} ${dayOrNight}`;
 
     //Clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
