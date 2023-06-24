@@ -22,7 +22,7 @@ const account1 = {
     "2023-06-22T10:51:36.790Z",
   ],
   currency: "EUR",
-  locale: "pt-PT", // de-DE
+  locale: "en-US", // de-DE
 };
 
 const account2 = {
@@ -42,7 +42,7 @@ const account2 = {
     "2023-06-12T12:01:20.894Z",
   ],
   currency: "USD",
-  locale: "en-US",
+  locale: "es-EC",
 };
 
 /////////////////////////////////////////////////
@@ -75,7 +75,7 @@ const inputClosePin = document.querySelector(".form__input--pin");
 const accounts = [account1, account2];
 
 //Date function:
-const formatMovementDate = function (date) {
+const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -86,12 +86,21 @@ const formatMovementDate = function (date) {
   if (dayPassed === 1) return "Yesterday";
   if (dayPassed <= 7) return `${dayPassed} days ago`;
   else {
-    //day/month/year
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    // //day/month/year
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(date);
   }
+};
+
+//FORMATING
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency", // 'currency',
+    currency: currency, // (the currency is not associate per country)
+  }).format(value);
 };
 
 //Desplegar los movimientos de la cuenta
@@ -106,13 +115,15 @@ const displayMovement = function (account, sort = false) {
   movs.forEach(function (mov, index) {
     const type = mov > 0 ? "deposit" : "withdrawal";
     const date = new Date(account.movementsDates[index]);
-    const displayDate = formatMovementDate(date);
+    const displayDate = formatMovementDate(date, account.locale);
+
+    const formattedMov = formatCur(mov, account.locale, account.currency);
 
     const html = `<div class="movements__row">
       <div class="movements__type movements__type--${type}">${index + 1} ${type}
     </div>
       <div class="movements__date">${displayDate}</div>
-      <div class="movements__value">${mov.toFixed(2)}€</div>
+      <div class="movements__value">${formattedMov}</div>
     </div>`;
 
     //insertAdjacentHTML(position of the element, string containg the HTML)
@@ -124,7 +135,8 @@ const displayMovement = function (account, sort = false) {
 //balance de la cuenta usando reduce
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
+  const formattedMov = formatCur(account.balance, account.locale, account.currency);
+  labelBalance.textContent = formattedMov;
 };
 
 //calcular el income, el outcome y el interes
@@ -132,19 +144,19 @@ const calcDisplaySummary = function (account) {
   const incomes = account.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = formatCur(incomes, account.locale, account.currency);
 
   const outcomes = account.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(outcomes.toFixed(2))}€`;
+  labelSumOut.textContent = formatCur(outcomes, account.locale, account.currency);
 
   const interest = account.movements
     .filter((mov) => mov > 0)
     .map((deposit) => (deposit * account.interestRate) / 100) //1.2% of the deposit amount
     .filter((int) => int >= 1)
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  labelSumInterest.textContent = formatCur(interest, account.locale, account.currency);
 };
 
 //Crear los usernames
@@ -184,13 +196,6 @@ updateUI(currentAccount);
 containerApp.style.opacity = 100;
 /////////////////////////////////////////////////
 
-//experiment with the app
-  //Set the date
-  const now = new Date();
-  labelDate.textContent = new Intl.DateTimeFormat('en').format(now);
-//link of format codes:
-//http://www.lingoes.net/en/translator/langcode.htm
-
 btnLogin.addEventListener("click", function (e) {
   //Prevent form from submitting
   e.preventDefault(); //prevent the reload of the page
@@ -206,6 +211,40 @@ btnLogin.addEventListener("click", function (e) {
       currentAccount.owner.split(" ")[0]
     }`;
     containerApp.style.opacity = 100; //hacer visible el contenido
+
+    //Create current date and time
+    //INTERNALIZATION
+    //experiment with the app
+    //Set the date
+    const now = new Date();
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric", //"2-digit",
+      month: "numeric", //'short',//"long",//"numeric",//"2-digit",
+      year: "numeric", //"2-digit",
+      //weekday: "long", //'short',//'long',
+    };
+
+    const options2 = {
+      weekday: "short", // or "long" for full weekday name
+      year: "numeric",
+      month: "short", // or "long" for full month name
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true, // to display time in 12-hour format with AM/PM
+    };
+
+    const locale = navigator.language;
+    console.log(locale); // en-US
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+
+    //link of format codes:
+    //http://www.lingoes.net/en/translator/langcode.htm
 
     // //Set the date
     // const now = new Date();
