@@ -135,7 +135,11 @@ const displayMovement = function (account, sort = false) {
 //balance de la cuenta usando reduce
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
-  const formattedMov = formatCur(account.balance, account.locale, account.currency);
+  const formattedMov = formatCur(
+    account.balance,
+    account.locale,
+    account.currency
+  );
   labelBalance.textContent = formattedMov;
 };
 
@@ -149,14 +153,22 @@ const calcDisplaySummary = function (account) {
   const outcomes = account.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = formatCur(outcomes, account.locale, account.currency);
+  labelSumOut.textContent = formatCur(
+    outcomes,
+    account.locale,
+    account.currency
+  );
 
   const interest = account.movements
     .filter((mov) => mov > 0)
     .map((deposit) => (deposit * account.interestRate) / 100) //1.2% of the deposit amount
     .filter((int) => int >= 1)
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = formatCur(interest, account.locale, account.currency);
+  labelSumInterest.textContent = formatCur(
+    interest,
+    account.locale,
+    account.currency
+  );
 };
 
 //Crear los usernames
@@ -307,17 +319,18 @@ btnLoan.addEventListener("click", function (e) {
     amount > 0 &&
     currentAccount.movements.some((mov) => mov >= amount * 0.1)
   ) {
-    //Add movement
-    currentAccount.movements.push(amount);
-    //Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+    setTimeout(function () {
+      //Add movement
+      currentAccount.movements.push(amount);
+      //Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    //update ui
-    updateUI(currentAccount);
-
-    //clear the field
-    inputLoanAmount.value = "";
+      //update ui
+      updateUI(currentAccount);
+    }, 2500);
   }
+  //clear the field
+  inputLoanAmount.value = "";
 });
 
 //-----------------------------------------------------------------------
