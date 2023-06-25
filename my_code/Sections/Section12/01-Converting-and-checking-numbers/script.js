@@ -2,7 +2,7 @@
 
 ///////////////////////////////////////
 // Converting and Checking Numbers
-console.log(23 === 23.0); //true
+console.log(23 == 23.0); //true
 
 // Base 10 - 0 to 9 Ex: (1/10 = 0.1), (3/10 = 3.3333333)
 // Binary base 2 - (0 1)
@@ -28,6 +28,8 @@ console.log(Number.isNaN('20')); //false
 console.log(Number.isNaN(+'20X')); //true
 console.log(Number.isNaN(23 / 0)); //false
 
+
+//VERIFICAR
 // Checking if value is number
 console.log(Number.isFinite(20)); //true
 console.log(Number.isFinite('20')); //false

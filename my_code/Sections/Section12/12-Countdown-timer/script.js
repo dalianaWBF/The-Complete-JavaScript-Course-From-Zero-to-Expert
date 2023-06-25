@@ -269,7 +269,8 @@ btnLogin.addEventListener("click", function (e) {
       day: "numeric", //"2-digit",
       month: "numeric", //'short',//"long",//"numeric",//"2-digit",
       year: "numeric", //"2-digit",
-      //weekday: "long", //'short',//'long',
+      weekday: "long", //'short',//'long',
+      hour12: true, 
     };
 
     const options2 = {

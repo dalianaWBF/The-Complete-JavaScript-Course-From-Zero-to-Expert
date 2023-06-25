@@ -69,9 +69,9 @@ console.log(arrayTest);
 console.log(arrayTest.fill(2, 3));
 console.log(movements.fill(44, 2, 6));
 
-//Array.from
+//Array.from --- REVISAR
 const y = Array.from({ length: 7 }, () => 1);
-console.log(y);
+console.log('Y', y);
 
 const z = Array.from({ length: 7 }, (_, index) => index + 1);
 console.log(z);

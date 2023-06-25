@@ -4,20 +4,20 @@
 // Creating Dates
 
 // Create a date
-// const now = new Date(); 
-// console.log(now); //fecha actual
+const now = new Date(); 
+console.log(now); //fecha actual
 
-// console.log(new Date('Aug 02 2020 18:05:41')); //Sun Aug 02 2020 18:05:41 GMT-0500 (Ecuador Time)
-// console.log(new Date('December 24, 2015')); //Thu Dec 24 2015 00:00:00 GMT-0500 (Ecuador Time)
-// console.log(new Date('2019-11-18T21:31:17.178Z')); //Mon Nov 18 2019 16:31:17 GMT-0500 (Ecuador Time)
+console.log(new Date('Aug 02 2020 18:05:41')); //Sun Aug 02 2020 18:05:41 GMT-0500 (Ecuador Time)
+console.log(new Date('December 24, 2015')); //Thu Dec 24 2015 00:00:00 GMT-0500 (Ecuador Time)
+console.log(new Date('2019-11-18T21:31:17.178Z')); //Mon Nov 18 2019 16:31:17 GMT-0500 (Ecuador Time)
 
-// //(year, month, day, hour, minute, second)
-// console.log(new Date(2037, 10, 19, 15, 23, 5)); //Thu Nov 19 2037 15:23:05 GMT-0500 (Ecuador Time)
-// console.log(new Date(2037, 10, 31)); //Tue Dec 01 2037 00:00:00 GMT-0500 (Ecuador Time)
+//(year, month, day, hour, minute, second)
+console.log(new Date(2037, 10, 19, 15, 23, 5)); //Thu Nov 19 2037 15:23:05 GMT-0500 (Ecuador Time)
+console.log(new Date(2037, 10, 31)); //Tue Dec 01 2037 00:00:00 GMT-0500 (Ecuador Time)
 
-// console.log(new Date(0)); //Wed Dec 31 1969 19:00:00 GMT-0500 (Ecuador Time)
-// //3 days after the Date(0) in miliseconds
-// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+console.log(new Date(0)); //Wed Dec 31 1969 19:00:00 GMT-0500 (Ecuador Time)
+//3 days after the Date(0) in miliseconds
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
 
 
 // Working with dates
