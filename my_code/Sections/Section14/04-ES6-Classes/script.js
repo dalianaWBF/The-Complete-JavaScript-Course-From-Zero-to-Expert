@@ -22,6 +22,8 @@ class PersonCl {
   greet() {
     console.log(`Hey ${this.fullName}`);
   }
+
+  
 }
 
 const jessica = new PersonCl('Jessica Davis', 1996);
