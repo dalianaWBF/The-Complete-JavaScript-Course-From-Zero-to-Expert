@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
 CODING CHALLENGE #2
@@ -11,3 +11,44 @@ CODING CHALLENGE #2
 DATA CAR 1: 'Ford' going at 120 km/h
 
 */
+
+//1. Use a constructor function to implement a 'Car'.
+class Car {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  get speedUS() {
+    return this.speed/1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+    console.log(`CAR 1: '${this.make}' going at ${this.speed} km/h`);
+  }
+
+}
+
+//2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+//3. Implement a 'brake' methodth at will decrease the car's speed by 5,and log the new speed to the console
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+//4. Create2'Car'objects
+const carNew = new Car("Ford", 120);
+
+//4.1 Experiment with calling 'accelerate' and 'brake' multiple times on each of them
+carNew.accelerate();
+carNew.brake();
+console.log(carNew.speedUS);
+carNew.speedUS = 50;
+console.log(carNew);
+
